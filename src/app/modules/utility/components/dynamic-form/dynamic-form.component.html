@@ -1,0 +1,20 @@
+<form [formGroup]="form" (submit)="submit()">
+    <div class="form-group" *ngFor="let field of fields">
+        <label class="text-capitalize" *ngIf="field?.label">{{ field?.label }}</label>
+        <div [ngSwitch]="field.type">
+            <app-text *ngSwitchCase="'text'" [field]="field" [form]="form"></app-text>
+            <app-password *ngSwitchCase="'password'" [field]="field" [form]="form"></app-password>
+            <app-group *ngSwitchCase="'group'" [field]="field" [form]="form"></app-group>
+            <app-file *ngSwitchCase="'file'" [field]="field" [form]="form"></app-file>
+            <app-select *ngSwitchCase="'select'" [field]="field" [form]="form"></app-select>
+            <app-checkbox *ngSwitchCase="'checkbox'" [field]="field" [form]="form"></app-checkbox>
+            <app-show-errors [control]="form.controls[field.name]"></app-show-errors>
+        </div>
+    </div>
+    <button class="btn btn-sm btn-outline-primary btn-block text-capitalize"
+        [ngClass]="(!form.valid || spinner) ? 'cursor-not-allowed' : ''" [disabled]="!form.valid || spinner">
+        <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+        </span>
+        {{ btn_label }}
+    </button>
+</form>

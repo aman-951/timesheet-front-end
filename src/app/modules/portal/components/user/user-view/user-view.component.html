@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4" [innerHTML]="detail?.name"></div>
+    <div>
+        <a routerLink="/candidates" class="btn btn-outline-danger btn-sm mr-2">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            list
+        </a>
+    </div>
+</div>
+
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered success">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <td [innerHTML]="detail?.name"></td>
+            </tr>
+            <tr>
+                <th class="info">phone</th>
+                <td [innerHTML]="detail?.phone"></td>
+            </tr>
+            <tr>
+                <th class="info">Email</th>
+                <td [innerHTML]="detail?.email"></td>
+            </tr>
+            <tr>
+                <th class="info">Role</th>
+                <td [innerHTML]="detail?.role" class="text-capitalize"></td>
+            </tr>
+            <tr>
+                <th>Register Date</th>
+                <td [innerHTML]="detail?.created_at | date:'MMMM dd, yyyy'"></td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div class="d-flex justify-content-end">
+    <app-change-role *ngIf="detail?.id" [id]="detail?.id"></app-change-role>
+</div>

@@ -1,0 +1,29 @@
+
+[
+      {
+         "client":"Fairway",
+         "projects":[
+            {
+               "project":"Production Support",
+               "subProjects":[
+                  "URLA",
+                  "TPO",
+                  "Credit tool"
+               ]
+            }
+         ]
+      },
+      {
+          "client":"Client 1",
+          "projects":[
+             {
+                "project":"Development",
+                "subProjects":[
+                   "CMS",
+                   "Transformation"
+                ]
+             }
+          ]
+       }
+      
+   ]

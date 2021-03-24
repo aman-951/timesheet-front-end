@@ -1,0 +1,11 @@
+
+.row label{
+	font-weight: 700;
+}
+
+.row{
+	margin-bottom: 18px;
+}
+select,input{
+	width: 302px;
+}

@@ -1,0 +1,90 @@
+
+
+
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        Assign Employees to Project
+    </div>
+    
+</div>
+
+
+  <form [formGroup] = "formGroup" (ngSubmit) = "searchTask(formGroup.value)" style='overflow: hidden;'> 
+  
+  <div style="margin: 32px;">
+     <div class="row">
+	   <div class="col-sm-3" >
+	     <label>Client:</label><br>
+	      <select  formControlName="client" (change)="onOptionsSelected($event)" [(ngModel)]="selectedClient">
+					   <option *ngFor="let l of clientList" value="{{l}}">{{l}}</option>
+		  </select>
+       </div>
+       <div class="col-sm-3">
+         <label>Project:</label><br>
+         <select  formControlName="project" (change)="onOptionsSelected2($event)" [(ngModel)]="selectedProject">
+					   <option *ngFor="let l of projectList" value="{{l}}">{{l}}</option>
+		 </select>
+       </div>
+       <div class="col-sm-3">
+         <label>Sub Project:</label><br>
+          <select  formControlName="subProject" [(ngModel)]="selectedSubProject" >
+					   <option *ngFor="let l of subProjectList" value="{{l}}">{{l}}</option>
+		  </select>
+       </div>
+       <div class="col-sm-3">
+         <label>Date:</label><br>
+         <input type = "date"  formControlName = "date" [(ngModel)]="dateSelected">
+       </div>
+  </div>
+    
+   </div>
+   
+   <input class="btn btn-sm btn-outline-success"  type = "submit"  style="float: right;width: 17%;margin: 29px;" value = "Search Task"> 
+	
+  </form>
+  
+  
+  <form [formGroup]="invoiceForm" (ngSubmit)="assigntask1(invoiceForm.value)" *ngIf="taskList.length >0">
+  
+  <div class="row">
+	   <div class="col-sm-4" >
+	     <label>From:</label><br>
+	     <input type = "date"  formControlName = "from">
+       </div>
+       <div class="col-sm-8">
+         <label>To:</label><br>
+         <input type = "date"  formControlName = "to">
+       </div>
+    </div>
+    
+	<table class="table table-hover">
+		<thead>
+			<th scope="col" class="text-capitalize">Task</th>
+		
+		    <th *ngFor="let item of employees" class="text-capitalize">{{item.name}}</th>
+			
+		</thead>
+		<tbody  formArrayName="Rows">
+			<tr *ngFor="let itemrow of getControls() ;let i=index;" [formGroupName]="i">
+               <td style='min-width: 188px;'><label>{{taskList[i]}}</label>
+					
+				</td>
+			  
+			   <td  *ngFor="let item of employees;let j=index;" > 
+		          <label >
+				      <input type="checkbox" formControlName="check{{j}}" />
+				      
+				   </label>
+                </td>
+			
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	
+	 <input class="btn btn-sm btn-outline-success"  type = "submit"  style="float: right;width: 17%;margin: 29px;" value = "Assign Task"> 
+	
+</form>
+  
+ 

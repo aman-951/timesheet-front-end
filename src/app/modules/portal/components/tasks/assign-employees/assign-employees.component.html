@@ -1,0 +1,59 @@
+
+
+
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        Assign Employees to Project
+    </div>
+    
+</div>
+
+
+  <form [formGroup] = "assignForm" > 
+  
+  <div style="margin: 32px;overflow: hidden;">
+     <div class="row">
+	   <div class="col-sm-4" >
+	     <label>Client:</label><br>
+	      <select  formControlName="client" (change)="onOptionsSelected($event)" [(ngModel)]="selectedClient">
+					   <option *ngFor="let l of clientList" value="{{l}}">{{l}}</option>
+		  </select>
+       </div>
+       <div class="col-sm-8">
+         <label>Project:</label><br>
+         <select  formControlName="project" [(ngModel)]="selectedProject">
+					   <option *ngFor="let l of projectList" value="{{l}}"  >{{l}}</option>
+		 </select>
+       </div>
+  </div>
+  
+  <input class="btn btn-sm btn-outline-success"  type = "submit"  style="float: right;width: 17%;margin: 29px;" (click)="searchEmployee()" value = "Search Employee"> 
+ 
+   </div>
+ 
+
+ 
+ 
+   <div *ngIf="list.length >0">
+      <label style='font-weight: 700;'>Search Employee:</label><br>
+      <input  [disabled]="!list.length" autocomplete="off" placeholder="Search" (keyup)="search_employee($event.target.value)" />
+         <ul *ngIf="searched_list.length" class="list-group list-group-flush position-absolute border shadow w-97 cursor-pointer">
+	        <li class="list-group-item  text-capitalize" *ngFor="let user of searched_list"
+	          (click)="add_assignee(user?.id)">
+	          {{ user?.name }} ({{ user?.email }})
+	        </li>
+        </ul>
+    </div>
+    
+   
+	  <span class="badgeClass" [title]="find_user_by_id(user_id)?.role" *ngFor="let user_id of assignForm.controls['employees'].value">
+	    {{ find_user_by_id(user_id)?.name }} ({{ find_user_by_id(user_id)?.email }})
+	    <span class="mx-1 text-danger cursor-pointer" (click)="remove_asignee(user_id)">
+	      <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+	    </span>
+	  </span>
+    
+      
+   <input *ngIf="list.length >0" class="btn btn-sm btn-outline-success"  type = "submit"  style="float: right;width: 17%;margin: 29px;" value = "Assign" (click)="assignEmployee()"> 
+</form>	
+  

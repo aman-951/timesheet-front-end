@@ -1,0 +1,34 @@
+
+<select (change)="onOptionsSelected($event)" style="margin: 14px;">
+	           	<option *ngFor="let i of monthList">{{i.value}}</option>
+</select>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-capitalize">Emp Id</th>
+                <th scope="col" class="text-capitalize">Emp Name</th>
+               
+<!-- 				<th scope="col" class="text-capitalize">Submitted Date</th> -->
+<!-- 				 <th scope="col" class="text-capitalize">Approved Date</th> -->
+<!-- 				<th scope="col" class="text-capitalize">Status</th> -->
+				 <th scope="col" class="text-capitalize">Link</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+            <tr *ngFor="let item of list">
+			     <td>{{item.empId}}</td>
+				 <td>{{item.name}}</td>
+				
+<!-- 				 <td>{{item.submittedDate | date:"dd MMM yyyy"}}</td> -->
+<!-- 				 <td>{{item.approvedDate | date:"dd MMM yyyy"}}</td> -->
+<!-- 				 <td>{{item.status}}</td> -->
+				 <td><a [routerLink]="['/timesheet',item.empId]" [state]="{ id:item.empId , selectedMonth:selectedMonth}" routerLinkActive="active">
+					open Timesheet
+				</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

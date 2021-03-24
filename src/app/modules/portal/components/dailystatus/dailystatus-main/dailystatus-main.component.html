@@ -1,0 +1,15 @@
+ 
+	
+ 
+ 
+    <a [routerLink]="['/dailyStatus',id]" routerLinkActive="active" class="list-group-item text-secondary list-group-item-action bg-light text-capitalize">
+        <i class="fa fa-book" aria-hidden="true"></i>
+        Submit Daily Status
+	</a>
+	
+	<a *ngIf="supervisorState" routerLink="/approveDailyStatus" routerLinkActive="active" class="list-group-item text-secondary list-group-item-action bg-light text-capitalize">
+        <i class="fa fa-bullseye" aria-hidden="true"></i>
+         Approve Daily Status
+    </a>
+    
+ 

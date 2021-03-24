@@ -1,0 +1,20 @@
+
+.row label{
+	font-weight: 700;
+}
+
+.row{
+	margin-bottom: 18px;
+}
+select{
+	width: 302px;
+}
+
+.badgeClass{
+	
+	margin: 13px;
+	background-color: #C0C0C0;
+    border-radius: 10rem;
+	display: inline-block;
+    padding: .25em .4em;
+}

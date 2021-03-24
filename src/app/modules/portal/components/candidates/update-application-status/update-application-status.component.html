@@ -1,0 +1,24 @@
+<span class="btn btn-outline-success btn-sm text-capitalize" data-toggle="modal" data-target="#updateApplicationStatus">
+    <i class="fa fa-bullseye" aria-hidden="true"></i>
+    change status
+</span>
+
+<!-- Modal -->
+<div class="modal fade" id="updateApplicationStatus" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="updateApplicationStatusLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title h6" id="updateApplicationStatusLabel">
+                    Update Application Status
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="app-close-btn">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-dynamic-form *ngIf="statusForm" [fields]="getFields()" [btn_label]="'change'" (submitResp)="submit($event)"></app-dynamic-form>
+            </div>
+        </div>
+    </div>
+</div>

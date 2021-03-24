@@ -1,0 +1,13 @@
+ 
+	
+ 
+ 
+    <a [routerLink]="['/timesheet',id]" routerLinkActive="active" class="list-group-item text-secondary list-group-item-action bg-light text-capitalize">
+        <i class="fa fa-bullseye" aria-hidden="true"></i>
+        My Timesheet
+	</a>
+	
+	<a *ngIf="supervisorState" routerLink="/approveTimesheet" routerLinkActive="active" class="list-group-item text-secondary list-group-item-action bg-light text-capitalize">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+        View Timesheet
+    </a>

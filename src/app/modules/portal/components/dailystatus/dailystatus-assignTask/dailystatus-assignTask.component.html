@@ -1,0 +1,55 @@
+
+
+
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        Assign Tasks
+    </div>
+    
+</div>
+
+
+  <form [formGroup] = "formGroup" (ngSubmit) = "assigntask(formGroup.value)" *ngIf="employees.length > 0"> 
+  
+  <div style="margin: 32px;">
+     <div class="row">
+	   <div class="col-sm-4" >
+	     <label for="birthday">Project:</label><br>
+	     <input type = "text"   formControlName = "project">
+       </div>
+       <div class="col-sm-8">
+         <label for="birthday">Task:</label><br>
+         <input type = "text" style=' width: 667px;'  formControlName = "task">
+       </div>
+  </div>
+  
+
+    <div class="row">
+	   <div class="col-sm-4" >
+	     <label for="birthday">From:</label><br>
+	     <input type = "date"  formControlName = "from">
+       </div>
+       <div class="col-sm-8">
+         <label for="birthday">To:</label><br>
+         <input type = "date"  formControlName = "to">
+       </div>
+    </div>
+    
+    <div class="row">
+       <div class="col-sm-6" >
+	     <label> Assign To:</label><br>
+	     <label style="width: 200px;" *ngFor="let data of employees" >
+	      <input type="checkbox" value="{{data.name}}" (change)="onCheckboxChange($event)"  [checked]="data.checked" />
+	      {{data.name}}
+	     </label>
+       </div>
+   
+    </div>
+    
+   </div>
+   
+   <input class="btn btn-sm btn-outline-success"  type = "submit"  style="float: right;width: 17%;margin: 29px;" value = "Assign Task"> 
+	
+
+  </form>
+  

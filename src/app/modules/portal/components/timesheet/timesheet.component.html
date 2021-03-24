@@ -1,0 +1,127 @@
+
+
+<style>
+
+table td input{
+	width: 107%;
+}
+
+select{
+	margin: 7px;
+}
+
+.col-sm-6 span{
+	font-weight: 700;
+}
+
+.table-hover .table td, .table th {
+   padding: .35rem;
+}
+
+</style>
+
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        Timesheet
+    </div>
+    
+</div>
+
+<div style="margin: 32px;">
+  <div class="row">
+  <div class="col-sm-6" ><span>Employee Name :</span> {{employeeData.name}}</div>
+    <div class="col-sm-6"><span>Email :</span> {{employeeData.email}} </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6" ><span>Employee Id :</span> {{employeeData.id}}</div>
+    <div class="col-sm-6"><span>Billable :</span> Yes</div>
+  </div>
+
+   <div class="row">
+    <div class="col-sm-6" ><span>Scheduled Hours :</span> {{scheduledHours}} </div>
+    <div class="col-sm-6"><span>Reported Hours :</span> {{grandTotal}} </div>
+  </div>
+</div>
+
+<select (change)="onOptionsSelected()" [(ngModel)]="selectedMonth">
+	           	<option *ngFor="let i of monthList" value="{{i.value}}">{{i.value}}</option>
+</select>
+
+<select (change)="onOptionsSelected1($event)" >
+	           	<option *ngFor="let i of weeks">{{i.value}}</option>
+</select>
+<input class="btn btn-outline-warning btn-sm"  type = "submit" (click)="exportToExcel()"   value = "Export">
+
+<form [formGroup]="invoiceForm" (ngSubmit)="saveTimesheet()">
+	<table class="table table-hover" id="excel-table">
+		<thead>
+			<th scope="col" class="text-capitalize">Project</th>
+		
+		    <th *ngFor="let item of dateSelectedList" class="text-capitalize">{{item.dayStr}} <br> {{item.value}}</th>
+			<th scope="col" class="text-capitalize">Total Hours</th>
+			
+		</thead>
+		<tbody formArrayName="Rows">
+			<tr *ngFor="let itemrow of getControls() ; let i=index;" [formGroupName]="i">
+               <td> <input formControlName="project" style="width:190px" >
+					
+				</td>
+			  
+			   <td  *ngFor="let item of dateSelectedList" > <input  formControlName="{{item.str}}" (change)="addHours()"> </td>
+			   <td><input style="border:none;background: none;" formControlName="horizontalHours" disabled></td>
+			  
+			   
+
+			</tr>
+			<tr [formGroupName]="0">
+			  <td style="font-weight: bold;">Total Hours</td>
+	
+			  <td *ngFor="let item of dateSelectedList" ><input style="border:none;background: none;" formControlName="{{item.vertical}}" disabled></td>
+			  <td><input style="border:none;background: none;font-weight: bold;" formControlName="grandTotalHours" disabled></td>
+			  <td></td>
+			  <td></td>
+
+			</tr>
+		</tbody>
+	</table>
+	
+</form>
+
+
+<form [formGroup]="submitForm" style='margin-top: 86px;margin-bottom: 45px;'>
+  <div class="table-responsive" *ngIf="list.length >0">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+<!-- 				<th *ngIf="approveState" scope="col" class="text-capitalize"></th> -->
+				<th scope="col" class="text-capitalize">Date</th>
+                <th scope="col" class="text-capitalize">In Time</th>
+				<th scope="col" class="text-capitalize">Out Time</th>
+				<th scope="col" class="text-capitalize">Hours</th>
+                <th scope="col" class="text-capitalize">Status</th>
+         
+            </tr>
+        </thead>
+        <tbody formArrayName="Rows">          
+            <tr *ngFor="let item of formArr1.controls ; let i=index;" [formGroupName]="i">
+<!-- 			    <td *ngIf="approveState"><input type="checkbox" formControlName="check" /></td> -->
+				<td>{{list[i].date | date:"dd MMM"}}</td>
+                <td [innerHTML]="list[i].in"></td>
+				<td [innerHTML]="list[i].out"></td>
+				<td [innerHTML]="list[i].hours"></td>
+                <td [innerHTML]="list[i].status" [ngStyle]="{'color': list[i].statusColor}"></td>
+             
+            </tr>
+        </tbody>
+	</table>
+	
+
+	
+
+</div>
+</form>
+
+
+<span  *ngIf="list.length >0">Note: You can change timesheet anytime before it is approved by your manager. Once approved, timesheet for a day can not be changed.</span>
+

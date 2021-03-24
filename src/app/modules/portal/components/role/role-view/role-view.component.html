@@ -1,0 +1,51 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4" [innerHTML]="detail?.name"></div>
+    <div>
+        <a routerLink="/roles" class="btn btn-outline-danger btn-sm mr-2">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            list
+        </a>
+    </div>
+</div>
+
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered success">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <td [innerHTML]="detail?.name"></td>
+            </tr>
+            <tr>
+                <th>Register Date</th>
+                <td [innerHTML]="detail?.created_at | date:'MMMM dd, yyyy'"></td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<hr />
+
+<div class="d-flex justify-content-between">
+    <div>
+        <span class="btn text-capitalize btn-outline-secondary btn-sm mb-2" data-toggle="collapse"
+            data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            permissions
+        </span>
+    </div>
+    <div *ngIf="detail?.id">
+        <a [routerLink]="['/roles', detail?.id, 'permissions']" class="btn btn-outline-danger mr-2 btn-sm">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            change permissions
+        </a>
+
+        <a [routerLink]="['/roles', detail?.id, 'modify']" class="btn btn-outline-warning btn-sm">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            modify
+        </a>
+    </div>
+</div>
+
+<div class="collapse" id="collapseExample">
+    <app-list-permissions *ngIf="detail?.id" [id]="detail?.id"></app-list-permissions>
+</div>

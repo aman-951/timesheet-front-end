@@ -1,0 +1,11 @@
+<div class="input-group" [formGroup]="form">
+    <div class="input-group-prepend" *ngIf="field?.icon">
+        <i class="fa input-group-text" [ngClass]="field?.icon" aria-hidden="true"></i>
+    </div>
+    <select class="form-control text-capitalize" [formControlName]="field?.name">
+        <option value="{{ null }}" class="text-capitalize">select</option>
+        <option *ngFor="let item of field?.options" [value]="item?.value" [innerHTML]="item?.label"
+            class="text-capitalize"></option>
+    </select>
+</div>
+<small *ngIf="field?.hint" class="form-text text-muted" [innerHTML]="field?.hint"></small>

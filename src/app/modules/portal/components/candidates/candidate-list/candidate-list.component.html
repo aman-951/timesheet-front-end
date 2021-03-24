@@ -1,0 +1,47 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        candidates
+    </div>
+    <a routerLink="/candidates/new" class="btn btn-outline-primary btn-sm">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        add
+    </a>
+</div>
+
+<hr />
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-capitalize">name</th>
+                <th scope="col" class="text-capitalize">father's name</th>
+                <th scope="col" class="text-capitalize">phone</th>
+                <th scope="col" class="text-capitalize">created_at</th>
+                <th scope="col" class="text-capitalize"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="!list.length">
+                <td colspan="5"></td>
+            </tr>
+            <tr *ngFor="let item of list">
+                <td class="text-capitalize" [innerHTML]="getName(item)"></td>
+                <td [innerHTML]="item?.father_name"></td>
+                <td [innerHTML]="item?.phone"></td>
+                <td [innerHTML]="item?.created_at | date:'MMMM dd, yyyy'"></td>
+                <td>
+                    <a *ngIf="item?.resume" target="_blank" [href]="getResumeUrl(item?.resume)"
+                        class="text-link text-decoration-none mr-3">
+                        <i class="fa fa-file" aria-hidden="true"></i>
+                    </a>
+                    <a [routerLink]="['/candidates', item?.id]" class="text-link text-decoration-none">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<app-pagination [pagination]="pagination" (childEvent)="setPage($event)"></app-pagination>

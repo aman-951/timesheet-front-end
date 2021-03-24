@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+
+/* regular style toast */
+@import '~ngx-toastr/toastr';
+
+.logo {
+    background-repeat: no-repeat;
+    /* background-size: contain; */
+    background-position: center;
+}
+
+.logo-img {
+    background-image: url('src/assets/image/logo.png');
+}
+
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

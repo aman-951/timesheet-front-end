@@ -1,0 +1,114 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        Daily Status Report
+    </div>
+    
+</div>
+
+<div style="margin: 32px;">
+  <div class="row">
+  <div class="col-sm-6" ><span>Employee Name :</span> {{employeeData.name}}</div>
+    <div class="col-sm-6"><span>Email :</span> {{employeeData.email}} </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6" ><span>Employee Id :</span> {{employeeData.id}}</div>
+    <div class="col-sm-6"><span>Billable :</span> Yes</div>
+  </div>
+  
+   <div class="row">
+    <div class="col-sm-6" ><span>In Time :</span> 9:10 AM</div>
+    <div class="col-sm-6"><span>Out Time :</span> 5:15 PM</div>
+  </div>
+
+  
+</div>
+
+<div>
+<select (change)="onOptionsSelected()" [(ngModel)]="selectedMonth">
+	           	<option *ngFor="let i of monthList" value="{{i.value}}">{{i.value}}</option>
+</select>
+
+<select (change)="onOptionsSelected1($event)" style='width: 104px;'>
+	           	<option *ngFor="let i of weeks">{{i.value}}</option>
+</select>
+
+</div>
+
+<div>
+<form [formGroup]="invoiceForm">
+	<table class="table table-hover">
+		<thead>
+		    <th *ngIf="approveState" scope="col" class="text-capitalize"><input type="checkbox"  [checked]="checked" (change)="selectAll($event)" /></th>
+			<th scope="col" class="text-capitalize">Project</th>
+			<th scope="col" class="text-capitalize">Task</th>
+			<th scope="col" class="text-capitalize">Activity</th>
+			<th scope="col" class="text-capitalize">Blocker</th>
+			<th scope="col" class="text-capitalize" *ngIf="blockerDescription">Blocker Description</th>
+			<th scope="col" class="text-capitalize">Hours spent</th>
+			<th scope="col" class="text-capitalize">Status</th>
+			<th *ngIf="!approveState" scope="col" class="text-capitalize"></th>
+			<th *ngIf="!approveState" scope="col" class="text-capitalize"></th>
+		</thead>
+		<tbody formArrayName="Rows">
+			<tr *ngFor="let itemrow of getControls() ; let i=index;" [formGroupName]="i">
+			   <td *ngIf="approveState"><input type="checkbox" formControlName="check" (change)="selectIndividualCheckbox($event)"/></td>
+               <td> 
+					 
+					   <select class="form-group col-md-2" formControlName="project" (change)="projectSelectionDropdown($event,i)"  style="min-width: max-content;margin: auto;">
+					   <option *ngFor="let l of projectList" value="{{l}}">{{l}}</option>
+						</select>
+				   
+				</td>
+			   <td> 
+			          <select class="form-group col-md-2" formControlName="task" (change)="taskSelectionDropdown($event,i)" style="min-width: max-content;margin: auto;">
+					   <option *ngFor="let l of getTaskList(i)" value="{{l}}">{{l}}</option>
+					  </select>
+			   </td>
+			   <td> 
+			          <select class="form-group col-md-2" formControlName="activity"  style="min-width: max-content;margin: auto;">
+					   <option *ngFor="let l of getActivityList(i)" value="{{l}}">{{l}}</option>
+					  </select>
+			   </td>
+
+			   <td> 
+					 
+					   <select class="form-group col-md-2" formControlName="blocker" (change)="onBlockerChange($event)" style="min-width: max-content;margin: auto;">
+					   <option value="No" >No</option>
+					   <option value="Yes">Yes</option>
+						</select>
+				
+				</td>
+				<td *ngIf="blockerDescription"><textarea rows="4" style=" width: 320px;" formControlName="blockerDescription" title="{{tooltip}}"  (mouseenter)="focus($event)" (mouseleave)="focusOut()"></textarea></td>
+			   <td><input formControlName="hours" (change)="addHours()"></td>
+			   <td><label formControlName="status"  [ngStyle]="{'color': getStatusColor(i)}" >{{this.invoiceForm.getRawValue().Rows[i].status}}</label></td>
+			   <td *ngIf="!approveState" ><input [disabled]="getDisabledState(i)" (click)="addNewRow()" class="btn btn-sm btn-outline-success" value = "+"></td>
+			   <td *ngIf="!approveState" ><input [disabled]="getDisabledState(i)" (click)="deleteRow(i)" class="btn btn-outline-warning btn-sm" value = "-"></td>
+               
+			   
+
+			</tr>
+			<tr [formGroupName]="0">			  
+			  <td style="font-weight: bold;">Total Hours</td>
+			  <td *ngIf="approveState"></td>
+			  <td></td>
+			  <td></td>
+			   <td></td>
+			   <td *ngIf="blockerDescription"></td>
+			  <td><input style="border:none;background: none;font-weight: bold;" formControlName="grandTotalHours" disabled></td>
+			  <td></td>
+			  <td></td>
+
+			</tr>
+		</tbody>
+	</table>
+	<input *ngIf="!approveState"  [disabled]="disabledState" class="btn btn-sm btn-outline-success"  type = "submit" (click)="saveReport()"  style="float: right;width: 17%;margin: 29px;" value = "Submit Report"> 
+	<input *ngIf="approveState" class="btn btn-sm btn-outline-success"  type = "submit" (click)="approveReport()"  style="float: right;width: 17%;margin: 29px;" value = "Approve Selected"> 
+	<input *ngIf="approveState" class="btn btn-outline-warning btn-sm"  type = "submit" (click)="rejectReport()"  style="float: right;width: 17%;margin: 29px;" value = "Reject Selected">
+	
+	 
+</form>
+</div>
+
+
+

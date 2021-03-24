@@ -1,0 +1,40 @@
+<span *ngIf="applicationStatuses && applicationStatuses.length">
+    <span class="cursor-pointer text-info mr-2" title="History" data-toggle="modal" data-target="#applicationStatusLog">
+        <i class="fa fa-history" aria-hidden="true"></i>
+    </span>
+    <b class="text-capitalize" [innerHTML]="applicationStatuses[0].name"></b>
+</span>
+
+<!-- Modal -->
+<div class="modal fade" id="applicationStatusLog" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="applicationStatusLogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applicationStatusLogLabel">Application Log</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered success">
+                        <thead>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of applicationStatuses">
+                                <td class="text-capitalize" [innerHTML]="item?.name"></td>
+                                <td class="text-capitalize" [innerHTML]="item?.created_at | date:'MMMM dd, yyyy'"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

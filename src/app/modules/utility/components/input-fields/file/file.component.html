@@ -1,0 +1,5 @@
+<div class="custom-file cursor-pointer">
+    <input type="file" class="custom-file-input" id="customFile" (change)="upload($event)">
+    <label class="custom-file-label" for="customFile">Choose file</label>
+</div>
+<small *ngIf="field?.hint" class="form-text text-muted" [innerHTML]="field?.hint"></small>

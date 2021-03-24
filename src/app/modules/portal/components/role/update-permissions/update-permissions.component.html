@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        Set permissions
+    </div>
+    <a routerLink="/roles" class="btn btn-outline-danger btn-sm">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        list
+    </a>
+</div>
+
+<hr />
+
+<app-dynamic-form *ngIf="form" [fields]="form" [btn_label]="'set permissions'"
+    [values]="permissions"
+    (submitResp)="submit($event)"></app-dynamic-form>

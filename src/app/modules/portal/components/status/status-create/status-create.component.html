@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        add status
+    </div>
+    <a routerLink="/application-statuses" class="btn btn-outline-danger btn-sm">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        statuses
+    </a>
+</div>
+
+<hr/>
+
+<app-dynamic-form [fields]="getFields()" [btn_label]="'create'" (submitResp)="submit($event)"></app-dynamic-form>

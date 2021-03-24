@@ -1,0 +1,37 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        roles
+    </div>
+    <a routerLink="/roles/new" class="btn btn-outline-primary btn-sm">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        add
+    </a>
+</div>
+
+<hr/>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-capitalize">name</th>
+                <th scope="col" class="text-capitalize">created_at</th>
+                <th scope="col" class="text-capitalize"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="!list.length">
+                <td colspan="3"></td>
+            </tr>
+            <tr *ngFor="let item of list">
+                <td class="text-capitalize" [innerHTML]="item?.name"></td>
+                <td [innerHTML]="item?.created_at | date:'MMMM dd, yyyy'"></td>
+                <td>
+                    <a [routerLink]="['/roles', item?.id]" class="text-link text-decoration-none">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4" [innerHTML]="getName()"></div>
+    <div>
+        <a routerLink="/candidates" class="btn btn-outline-danger btn-sm mr-2">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            list
+        </a>
+    </div>
+</div>
+
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered success">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <td [innerHTML]="getName()"></td>
+            </tr>
+            <tr>
+                <th class="info">Address</th>
+                <td [innerHTML]="detail?.address"></td>
+            </tr>
+            <tr>
+                <th class="info">Email</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th class="info">Resume</th>
+                <td *ngIf="resume">
+                    <a target="_blank" [href]="getResumeUrl(detail?.resume)" class="text-decoration-none text-info"
+                        [innerHTML]="resume?.name" [title]="resume?.type">
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th class="info">Contact</th>
+                <td [innerHTML]="detail?.phone"></td>
+            </tr>
+            <tr>
+                <th class="info">Application Status</th>
+                <td>
+                    <app-status-log *ngIf="detail?.id" [id]="detail?.id"></app-status-log>
+                </td>
+            </tr>
+            <tr>
+                <th>Register Date</th>
+                <td [innerHTML]="detail?.created_at | date:'MMMM dd, yyyy'"></td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div class="d-flex justify-content-end">
+    <app-update-application-status *ngIf="detail?.id" [id]="detail?.id"></app-update-application-status>
+    <app-share-candidate class="mx-2" *ngIf="detail?.id" [id]="detail?.id"></app-share-candidate>
+
+    <a *ngIf="detail?.id" [routerLink]="['/candidates', detail?.id, 'modify']" class="btn btn-outline-warning btn-sm">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+        modify
+    </a>
+</div>

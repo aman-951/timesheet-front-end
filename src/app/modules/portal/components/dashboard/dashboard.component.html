@@ -1,0 +1,33 @@
+<div class="card rounded bg-success shadow col-sm-12 col-md-3">
+    <div class="card-body text-dark">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card-title text-uppercase mb-0 h5">
+                    <a routerLink="/candidates" class="text-dark text-decoration-none">Candidates</a>
+                </div>
+                <span class="h5 font-weight-bold mb-0" [innerHTML]="total?.candidates">
+                </span>
+            </div>
+            <div class="col-md-2">
+                <i class="fa fa-users"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card rounded bg-warning shadow col-sm-12 col-md-3 mt-3">
+    <div class="card-body text-dark">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card-title text-uppercase mb-0 h5">
+                    <a routerLink="/users" class="text-dark text-decoration-none text-capitalize">users</a>
+                </div>
+                <span class="h5 font-weight-bold mb-0" [innerHTML]="total?.users">
+                </span>
+            </div>
+            <div class="col-md-2">
+                <i class="fa fa-users"></i>
+            </div>
+        </div>
+    </div>
+</div>

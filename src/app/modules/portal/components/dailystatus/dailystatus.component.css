@@ -1,0 +1,20 @@
+table td input{
+	width: 50px;
+}
+
+select{
+	margin: 16px;
+}
+
+.col-sm-6 span{
+	font-weight: 700;
+}
+
+.table-hover .table td, .table th {
+   padding: .35rem;
+  
+}
+
+.table{
+	 text-align: center;
+}

@@ -1,0 +1,9 @@
+<label class="text-capitalize" *ngIf="field?.label">{{ field?.label }}</label>
+<div class="form-row" [formGroup]="form">
+    <div class="col-sm 12" [ngClass]="getClass()" *ngFor="let item of field.groups">
+        <div [ngSwitch]="item.type">
+            <app-text *ngSwitchCase="'text'" [field]="item" [form]="form"></app-text>
+            <app-show-errors [control]="form.controls[item.name]"></app-show-errors>
+        </div>
+    </div>
+</div>

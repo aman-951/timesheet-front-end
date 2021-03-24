@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "timesheet-front-end"
+  "defaultProject": "timesheet-front-end",
+  "cli": {
+    "analytics": "e5abc678-bc49-4a9d-908f-0d2183407cd2"
+  }
 }

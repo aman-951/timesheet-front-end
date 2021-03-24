@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        add user
+    </div>
+    <a routerLink="/users" class="btn btn-outline-danger btn-sm">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        list
+    </a>
+</div>
+
+<hr/>
+
+<app-dynamic-form *ngIf="roleForm" [fields]="getFields()" [btn_label]="'create'" (submitResp)="submit($event)"></app-dynamic-form>

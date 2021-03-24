@@ -1,0 +1,6 @@
+<div class="text-capitalize text-center mb-4 fs-4">Login</div>
+<app-dynamic-form [fields]="getFields()" [btn_label]="'login'" (submitResp)="submit($event)"></app-dynamic-form>
+
+<hr/>
+
+<a routerLink="/forgot-password" class="btn-link text-capitalize text-decoration-none">Forgot password?</a>

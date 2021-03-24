@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-between text-capitalize my-3">
+    <div class="h4">
+        add role
+    </div>
+    <a routerLink="/roles" class="btn btn-outline-danger btn-sm">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        list
+    </a>
+</div>
+
+<hr />
+
+<app-dynamic-form [fields]="getFields()" [btn_label]="detail ? 'update' : 'create'" [values]="detail"
+    (submitResp)="submit($event)"></app-dynamic-form>

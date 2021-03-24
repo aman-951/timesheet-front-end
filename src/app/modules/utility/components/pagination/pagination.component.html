@@ -1,0 +1,19 @@
+<nav *ngIf="pagination?.total" aria-label="Page navigation">
+    <ul class="pagination pagination-sm">
+        <li class="page-item" (click)="changePage(getPager()?.currentPage - 1)"
+            [ngClass]="pagination?.current_page == 1 ? 'disabled cursor-block' : 'cursor-pointer'">
+            <span class="page-link">Previous</span>
+        </li>
+        <!-- design dynamic pagination -->
+        <li *ngFor="let page of getPager()?.pages" class="page-item"
+            [ngClass]="(page) == pagination?.current_page ? 'active cursor-block' : 'cursor-pointer'">
+            <span *ngIf="(page) == pagination?.current_page" class="page-link">{{page}}</span>
+            <span *ngIf="(page) != pagination?.current_page" (click)="changePage(page)" class="page-link">{{page}}</span>
+        </li>
+
+        <li class="page-item" [ngClass]="lastpage() ? 'disabled cursor-block' : 'cursor-pointer'">
+            <span *ngIf="!lastpage()" (click)="changePage(getPager()?.totalPages)" class="page-link">Next</span>
+            <span *ngIf="lastpage()" class="page-link">Next</span>
+        </li>
+    </ul>
+</nav>

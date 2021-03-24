@@ -1,0 +1,25 @@
+<span class="btn btn-outline-warning btn-sm text-capitalize" data-toggle="modal" data-target="#changeUserRole">
+    <i aria-hidden="true" class="fa fa-id-badge"></i>
+    change role
+</span>
+
+<!-- Modal -->
+<div class="modal fade" id="changeUserRole" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="changeUserRoleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title h6" id="changeUserRoleLabel">
+                    Change Role
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeBtn">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-dynamic-form *ngIf="roleForm" [fields]="getFields()" [btn_label]="'change'"
+                    (submitResp)="submit($event)"></app-dynamic-form>
+            </div>
+        </div>
+    </div>
+</div>

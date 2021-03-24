@@ -1,0 +1,29 @@
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <!-- sidebar navigation -->
+        <app-sidebar></app-sidebar>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-secondary" (click)="toggleSideBar($event)">
+                <i class="fa fa-angle-double-left"></i>
+            </button>
+
+            <!-- topbar navigation -->
+            <app-header></app-header>
+        </nav>
+
+        <div class="container-fluid p-2">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
