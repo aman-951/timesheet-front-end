@@ -17,13 +17,13 @@
   <div class="row">
 	   <div class="col-sm-4" >
 	     <label>Client:</label><br>
-	      <select  formControlName="client" (change)="onOptionsSelected($event)" [(ngModel)]="selectedClient">
+	      <select  formControlName="client" (change)="onOptionsSelected()" [(ngModel)]="selectedClient">
 					   <option *ngFor="let l of clientList" value="{{l}}">{{l}}</option>
 		  </select>
        </div>
        <div class="col-sm-4">
          <label>Project:</label><br>
-          <select  formControlName="project" (change)="onOptionsSelected2($event)" [(ngModel)]="selectedProject" >
+          <select  formControlName="project" (change)="onOptionsSelected2()" [(ngModel)]="selectedProject" >
 					   <option *ngFor="let l of projectList" value="{{l}}">{{l}}</option>
 		 </select>
        </div>
@@ -40,7 +40,8 @@
  </div>
  
 
-  <div class="col-md-4 col-sm-12" *ngIf="tasks">
+<div class="row">
+  <div class="col-sm-5" *ngIf="activityMap">
     <!-- add field  to add new task -->
     <label>Add Tasks:</label>
     <span class="btn btn-outline-success btn-sm ml-2 rounded-circle" (click)="addremoveFields()">
@@ -51,20 +52,36 @@
     <div formArrayName="tasks" *ngFor="let item of projectForm.get('tasks')['controls']; let i = index;">
       <div [formGroupName]="i" class="form-group-name my-1">
         <div class="form-row">
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-1">
             <span class="btn btn-outline-danger btn-sm ml-2 rounded-circle" (click)="addremoveFields(i)">
               <i class="fa fa-minus" aria-hidden="true"></i>
             </span>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-10">
             <input class="form-control" autocomplete="off" formControlName="task" placeholder="Task Detail" />
+          </div>
+           <div class="form-group col-md-1">
+           	 <span class="btn btn-outline-success btn-sm ml-2 rounded-circle" (click)="showActivity($event,i)">
+		      <i class="fa fa-eye" aria-hidden="true"></i>
+		    </span>
           </div>
         </div>
       </div>
     </div>
   </div>
+  
+  
+  <div class="col-sm-6" *ngIf="activityMap">
+    <!-- add field  to add new task -->
+    <label>Activities:</label><br>
+    <textarea rows="10" style=" width: 616px;margin-top: 7px;" formControlName="addActivity"></textarea>
 
-  <div class="text-right" *ngIf="tasks">
+   
+  </div>
+  
+  </div>
+
+  <div class="text-right" *ngIf="activityMap">
     <button class="btn btn-outline-success btn-sm text-capitalize px-5" [disabled]="projectForm.invalid"
       (click)="addtask()">add tasks</button>
   </div>

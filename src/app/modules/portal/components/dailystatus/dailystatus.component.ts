@@ -62,7 +62,7 @@ export class DailystatusComponent implements OnInit {
 
   taskListForTable:any = [];
   activityListForTable:any = [];
-  counter: int = 0;
+  counter: number = 0;
   combinedData: any =[];
   checked : any = false;
 
@@ -171,9 +171,9 @@ export class DailystatusComponent implements OnInit {
     this.projectSelectOption1(e.target.value,null,i);
   }
 
-  projectSelectOption1(project: string, task: string, i:number): void {
+  projectSelectOption1(project: string, task: any, i:number): void {
 	
-	this.combinedData.forEach(obj =>{
+	this.combinedData.forEach((obj:any) =>{
 		if(obj.project == project){
 			this.taskListForTable[i] = obj.tasks;	
 			if(task == null)
@@ -194,7 +194,7 @@ export class DailystatusComponent implements OnInit {
   }
 
  taskSelectOption(project: string, task: string, i:number): void {
-	this.combinedData.forEach(obj =>{
+	this.combinedData.forEach((obj:any) =>{
 		if(obj.project == project && obj.activities.size >0){		
 			this.activityList = obj.activities.get(task).split(',');
            this.activityListForTable[i] = this.activityList;
@@ -210,7 +210,7 @@ export class DailystatusComponent implements OnInit {
 
   projectSelectOption(value: string, loadcounter:number): void {
 	
-	var obj = new Object();
+	var object:any = {};
 	
 
      this._service.getActivities(value,'add_tasks').subscribe((res:any) => {
@@ -227,8 +227,8 @@ export class DailystatusComponent implements OnInit {
                 }  
 			   }) 
                 
-              obj.project = value;
-              obj.activities =   this.activityMap;
+         object.project = value;
+         object.activities =   this.activityMap;
               
 			}
 	})
@@ -241,8 +241,8 @@ export class DailystatusComponent implements OnInit {
 		
          })
          loadcounter++;
-          obj.tasks = this.taskList;
-          this.combinedData.push(obj);
+         object.tasks = this.taskList;
+          this.combinedData.push(object);
       
           if(loadcounter == this.projectList.size){
 	          this.loadInitialData();
@@ -281,24 +281,41 @@ export class DailystatusComponent implements OnInit {
 	              this.blockerDescription = true;
                   this.rowArray(i).controls['blockerDescription'].enable();	
                 }
+                if(obj[i].addActivity != null){
+	               this.rowArray(i).controls['addActivity'].enable();
+                }
 
                 this.rowArray(i).controls['activity'].setValue(obj[i].activity);
 				this.rowArray(i).controls['blocker'].setValue(obj[i].blocker);
 				this.rowArray(i).controls['project'].setValue(obj[i].project);
 				this.rowArray(i).controls['blockerDescription'].setValue(obj[i].blockerDescription);				
 				this.rowArray(i).controls['task'].setValue(obj[i].task);
+				this.rowArray(i).controls['addActivity'].setValue(obj[i].addActivity);
 				this.rowArray(i).controls['hours'].setValue(obj[i].hours);
 				this.rowArray(i).controls['status'].setValue(obj[i].status);
-				
+				this.rowArray(i).controls['employeeComment'].setValue(obj[i].employeeComment);
+				this.rowArray(i).controls['managerComment'].setValue(obj[i].managerComment);
+				this.rowArray(i).controls['activityStatus'].setValue(obj[i].activityStatus);
+	
 				if(this.approveState || obj[i].status == 'Approved'){
 				//this.disabledState = true;
 				this.rowArray(i).controls['activity'].disable();
 				this.rowArray(i).controls['blocker'].disable();
 				this.rowArray(i).controls['blockerDescription'].disable();
+				this.rowArray(i).controls['addActivity'].disable();
 				this.rowArray(i).controls['project'].disable();
 				this.rowArray(i).controls['task'].disable();
 				this.rowArray(i).controls['hours'].disable();
+				//this.rowArray(i).controls['employeeComment'].disable();
+				//this.rowArray(i).controls['managerComment'].disable();
+				this.rowArray(i).controls['activityStatus'].disable();
 				}
+				if(this.approveState){
+					this.rowArray(i).controls['employeeComment'].disable();
+				}else{
+					this.rowArray(i).controls['managerComment'].disable();
+				}
+				
 				
 	
               }
@@ -402,6 +419,10 @@ export class DailystatusComponent implements OnInit {
       activity:'',
       blocker:'No',
       grandTotalHours: '',
+      employeeComment: '',
+      managerComment: '',
+      activityStatus:'Yet to Start',
+      addActivity: [{value: '', disabled: true}],
       blockerDescription : [{value: '', disabled: true}]
     });
   }
@@ -412,7 +433,7 @@ export class DailystatusComponent implements OnInit {
     return (this.invoiceForm.get('Rows') as FormArray).controls;
   }
 
-  addNewRow(project:string, task: string) {
+  addNewRow(project:any, task: string) {
 	this.formArr.push(this.initRows());
 	this.counter++;
 	if(project == null)
@@ -469,6 +490,10 @@ export class DailystatusComponent implements OnInit {
 	   var currentDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
      this.dataToBeSaved.push({ date: this.dateSelected, empId: this.empId, detail: myJSON, status: 'Approved', approvedDate: currentDate });
      this._service.post(this.dataToBeSaved).subscribe(res => {
+	this.checked =false;
+		for(var i=0; i< this.invoiceForm.getRawValue().Rows.length ; i++){
+		this.rowArray(i).controls['check'].setValue(false)
+	  }
      
     })
   }
@@ -483,7 +508,10 @@ export class DailystatusComponent implements OnInit {
 	   var currentDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
      this.dataToBeSaved.push({ date: this.dateSelected, empId: this.empId, detail: myJSON, status: 'Rejected', approvedDate: currentDate });
      this._service.post(this.dataToBeSaved).subscribe(res => {
-     
+     this.checked =false;
+		for(var i=0; i< this.invoiceForm.getRawValue().Rows.length ; i++){
+		this.rowArray(i).controls['check'].setValue(false)
+	  }
     })
 
   }
@@ -502,7 +530,7 @@ export class DailystatusComponent implements OnInit {
                 return '#28a745';
             }else if(status == 'Pending'){
                 return '#ffc107';
-            }else if(status == 'Rejected'){
+            }else{
                 return'#DF330E';
             }
 
@@ -518,7 +546,7 @@ export class DailystatusComponent implements OnInit {
 
 }
 
- selectIndividualCheckbox(e:event){
+ selectIndividualCheckbox(){
 	var checkCounter = 0;
 	this.checked =false;
 	for(var i=0; i< this.invoiceForm.getRawValue().Rows.length ; i++){
@@ -531,7 +559,7 @@ export class DailystatusComponent implements OnInit {
 	
  }
   
- selectAll(e:event){
+ selectAll(e:any){
 	if(e.currentTarget.checked){
 	  this.checked =true;
 	  for(var i=0; i< this.invoiceForm.getRawValue().Rows.length ; i++){
@@ -545,6 +573,16 @@ export class DailystatusComponent implements OnInit {
 		this.rowArray(i).controls['check'].setValue(false)
 	  }
 	}
+	
+ }
+
+ addActivity(i:number){
+	this.rowArray(i).controls['addActivity'].enable();
+	
+ }
+
+removeActivity(i:number){
+	this.rowArray(i).controls['addActivity'].disable();
 	
  }
 

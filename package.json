@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~11.0.9",
     "@angular/platform-browser-dynamic": "~11.0.9",
     "@angular/router": "~11.0.9",
+    "@types/file-saver": "^2.0.1",
     "angular-data-table": "^0.8.1",
     "angular-material": "^1.2.2",
     "exceljs": "^4.2.1",

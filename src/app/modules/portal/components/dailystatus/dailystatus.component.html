@@ -43,9 +43,13 @@
 			<th scope="col" class="text-capitalize">Project</th>
 			<th scope="col" class="text-capitalize">Task</th>
 			<th scope="col" class="text-capitalize">Activity</th>
+			<th scope="col" class="text-capitalize">Add Activity</th>
 			<th scope="col" class="text-capitalize">Blocker</th>
 			<th scope="col" class="text-capitalize" *ngIf="blockerDescription">Blocker Description</th>
 			<th scope="col" class="text-capitalize">Hours spent</th>
+			<th scope="col" class="text-capitalize">Activity Status</th>
+			<th scope="col" class="text-capitalize">Employee's Comment</th>
+			<th scope="col" class="text-capitalize">Manager's Comment</th>
 			<th scope="col" class="text-capitalize">Status</th>
 			<th *ngIf="!approveState" scope="col" class="text-capitalize"></th>
 			<th *ngIf="!approveState" scope="col" class="text-capitalize"></th>
@@ -70,7 +74,13 @@
 					   <option *ngFor="let l of getActivityList(i)" value="{{l}}">{{l}}</option>
 					  </select>
 			   </td>
-
+                <td *ngIf="!approveState"><input *ngIf="rowArray(i).controls['addActivity'].disabled" (click)="addActivity(i)" class="btn btn-sm btn-outline-success" value = "+">
+                    <input *ngIf="rowArray(i).controls['addActivity'].enabled" (click)="removeActivity(i)" class="btn btn-outline-warning btn-sm" value = "-">
+                  <textarea  *ngIf="rowArray(i).controls['addActivity'].enabled" rows="4" style=" width: 320px;margin-top: 7px;" formControlName="addActivity"  (mouseenter)="focus($event)" (mouseleave)="focusOut()"></textarea>
+                </td>
+                <td *ngIf="approveState">
+                  <textarea *ngIf="rowArray(i).controls['addActivity'].disabled" rows="4" style=" width: 320px;margin-top: 7px;" formControlName="addActivity"  (mouseenter)="focus($event)" (mouseleave)="focusOut()"></textarea>
+                 </td>
 			   <td> 
 					 
 					   <select class="form-group col-md-2" formControlName="blocker" (change)="onBlockerChange($event)" style="min-width: max-content;margin: auto;">
@@ -81,6 +91,17 @@
 				</td>
 				<td *ngIf="blockerDescription"><textarea rows="4" style=" width: 320px;" formControlName="blockerDescription" title="{{tooltip}}"  (mouseenter)="focus($event)" (mouseleave)="focusOut()"></textarea></td>
 			   <td><input formControlName="hours" (change)="addHours()"></td>
+			   <td> 
+					 
+					   <select class="form-group col-md-2" formControlName="activityStatus" style="min-width: max-content;margin: auto;">
+					   <option value="No" >Yet to Start</option>
+					   <option value="Yes">In Progress</option>
+					   <option value="No" >Completed</option>
+						</select>
+				
+				</td>
+			   <td><textarea rows="4" style=" width: 320px;" formControlName="employeeComment"  (mouseenter)="focus($event)" (mouseleave)="focusOut()"></textarea></td>
+			   <td><textarea rows="4" style=" width: 320px;" formControlName="managerComment"  (mouseenter)="focus($event)" (mouseleave)="focusOut()"></textarea></td>			   
 			   <td><label formControlName="status"  [ngStyle]="{'color': getStatusColor(i)}" >{{this.invoiceForm.getRawValue().Rows[i].status}}</label></td>
 			   <td *ngIf="!approveState" ><input [disabled]="getDisabledState(i)" (click)="addNewRow()" class="btn btn-sm btn-outline-success" value = "+"></td>
 			   <td *ngIf="!approveState" ><input [disabled]="getDisabledState(i)" (click)="deleteRow(i)" class="btn btn-outline-warning btn-sm" value = "-"></td>
@@ -93,9 +114,12 @@
 			  <td *ngIf="approveState"></td>
 			  <td></td>
 			  <td></td>
+			  <td></td>
 			   <td></td>
 			   <td *ngIf="blockerDescription"></td>
 			  <td><input style="border:none;background: none;font-weight: bold;" formControlName="grandTotalHours" disabled></td>
+			  <td></td>
+			  <td></td>
 			  <td></td>
 			  <td></td>
 

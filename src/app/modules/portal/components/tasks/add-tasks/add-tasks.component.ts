@@ -23,6 +23,8 @@ export class AddTasksComponent implements OnInit {
    saveList:any =[];
     tasks:any;
    file: File;
+   activityMap:any
+ 
 
   clientListFromFile = new Set();
   subProjectListFromFile = new Set();
@@ -57,9 +59,9 @@ export class AddTasksComponent implements OnInit {
 				    }
 
 
-                    var project;
-                    var client;
-                    var subProject;
+                    var project:any;
+                    var client:any;
+                    var subProject:any;
                     var tasks = '';
                     var activity = '';
                     this.saveList = [];
@@ -136,9 +138,10 @@ export class AddTasksComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.projectForm = new FormGroup({
-			client: new FormControl(null, [Validators.required]),
-			project: new FormControl(null, [Validators.required]),
-			subProject: new FormControl(null, [Validators.required]),
+			client: new FormControl(null),
+			project: new FormControl(null),
+			subProject: new FormControl(null),
+			addActivity:new FormControl(null),
 			tasks: this._fb.array([])
 		})
 		
@@ -209,24 +212,56 @@ export class AddTasksComponent implements OnInit {
 		//this.tasks = '';
 		this.fields = this.projectForm.get('tasks') as FormArray;
 		this.fields.controls = [];
+		this.projectForm.controls['addActivity'].setValue('');
 		    
-		this._service.find(this.selectedClient, this.selectedProject, this.selectedSubProject,'add_tasks').subscribe((res:any) => {
+//		this._service.find(this.selectedClient, this.selectedProject, this.selectedSubProject,'add_tasks').subscribe((res:any) => {
+//			if(res.data.length > 0){
+//			
+//			var i=0;
+//			  this.tasks = res.data[0].tasks.split(",");
+//		    this.tasks.forEach((obj:any) =>{
+//			     
+//             this.fields.push(this.createItem());
+//			     this.projectForm.get("tasks").controls[i].controls['task'].setValue(obj)
+//			      i++;
+//		     })
+//				
+//
+//			}
+//		})
+		
+		
+		this._service.getActivities(this.selectedSubProject,'add_tasks').subscribe((res:any) => {
 			if(res.data.length > 0){
-			
-			var i=0;
-			  this.tasks = res.data[0].tasks.split(",");
-		    this.tasks.forEach((obj:any) =>{
-			     
-             this.fields.push(this.createItem());
-			     this.projectForm.get("tasks").controls[i].controls['task'].setValue(obj)
-			      i++;
-		     })
-				
-
+				var i=0;	
+				this.activityMap = new Map();		
+			   res.data.forEach((obj:any) =>{
+				if(obj.activity != null){
+				 var activities = obj.activity.split('},');
+			     activities.forEach((item:any) =>{
+				  item = item.replace(/{/g, "").replace(/}/g, "").replace(/\[/g, '').replace(/]/g, '');
+				  this.activityMap.set(item.split(':')[0].trim(), item.split(':')[1].trim());
+		
+		           this.fields.push(this.createItem());
+			       this.rowArray(i).controls['task'].setValue(item.split(':')[0].trim())
+				  i++
+			     })
+                }  
+			   }) 
+                
+              
 			}
-		})
+	})
 		
 	}
+	
+ rowArray(i:number) {
+     return this.formArr.controls[i] as FormArray;
+  }
+
+  get formArr() {
+    return this.projectForm.get("tasks") as FormArray;
+  }
 	
 	
 	
@@ -243,4 +278,15 @@ export class AddTasksComponent implements OnInit {
 		})
 
 	}
+	
+	showActivity(e: any,i:number){		
+		var activities = this.activityMap.get(this.projectForm.value.tasks[i].task).split(',');
+		var str='';
+		activities.forEach((obj:any) =>{
+			str = str + obj +'\n';
+		})
+		this.projectForm.controls['addActivity'].setValue(str);
+	}
+	
+	
 }

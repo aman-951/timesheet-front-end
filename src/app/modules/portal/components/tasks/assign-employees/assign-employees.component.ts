@@ -53,7 +53,7 @@ export class AssignEmployeesComponent implements OnInit {
 	}
 
 	find_user_by_id(id: string): any {
-		return this.list.find(user => user?.id === id)
+		return this.list.find((user:any) => user?.id === id)
 	}
 
 	// remove asignee from assignForm.employees

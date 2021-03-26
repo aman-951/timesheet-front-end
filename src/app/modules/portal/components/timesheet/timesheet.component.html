@@ -98,19 +98,20 @@ select{
 				<th scope="col" class="text-capitalize">Date</th>
                 <th scope="col" class="text-capitalize">In Time</th>
 				<th scope="col" class="text-capitalize">Out Time</th>
-				<th scope="col" class="text-capitalize">Hours</th>
-                <th scope="col" class="text-capitalize">Status</th>
-         
+                <th scope="col" class="text-capitalize">Approved Hours</th>
+                <th scope="col" class="text-capitalize">Rejected Hours</th>
+                <th scope="col" class="text-capitalize">Pending Hours</th>
             </tr>
         </thead>
         <tbody formArrayName="Rows">          
-            <tr *ngFor="let item of formArr1.controls ; let i=index;" [formGroupName]="i">
+            <tr *ngFor="let item of list ; let i=index;" [formGroupName]="i">
 <!-- 			    <td *ngIf="approveState"><input type="checkbox" formControlName="check" /></td> -->
-				<td>{{list[i].date | date:"dd MMM"}}</td>
-                <td [innerHTML]="list[i].in"></td>
-				<td [innerHTML]="list[i].out"></td>
-				<td [innerHTML]="list[i].hours"></td>
-                <td [innerHTML]="list[i].status" [ngStyle]="{'color': list[i].statusColor}"></td>
+				<td>{{item.date | date:"dd MMM"}}</td>
+                <td [innerHTML]="item.in"></td>
+				<td [innerHTML]="item.out"></td>
+				<td [innerHTML]="item.approvedHours"></td>
+               	<td [innerHTML]="item.rejectedHours"></td>
+                <td [innerHTML]="item.pendingHours"></td>
              
             </tr>
         </tbody>

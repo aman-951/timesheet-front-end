@@ -15,7 +15,7 @@
      <div class="row">
 	   <div class="col-sm-4" >
 	     <label>Client:</label><br>
-	      <select  formControlName="client" (change)="onOptionsSelected($event)" [(ngModel)]="selectedClient">
+	      <select  formControlName="client" (change)="onOptionsSelected()" [(ngModel)]="selectedClient">
 					   <option *ngFor="let l of clientList" value="{{l}}">{{l}}</option>
 		  </select>
        </div>

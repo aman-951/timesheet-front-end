@@ -186,7 +186,7 @@ export class AssignTasksComponent implements OnInit {
   }
 
 	assigntask1(value: any): void{
-		var listToBeSaved = [];
+		var listToBeSaved:any = [];
 		this.employees.forEach((obj:any) => {
 			
 			this.invoiceForm.value.Rows.forEach((item:any) => {
