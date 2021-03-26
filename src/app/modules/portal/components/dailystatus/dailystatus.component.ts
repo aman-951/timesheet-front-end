@@ -378,12 +378,13 @@ export class DailystatusComponent implements OnInit {
 	               // this.projectSelectOption(Array.from(this.projectList)[0]);
                }
                else if(res.data.length == 0){
+	                this.loadInitialData();
 	                 this.projectList.add('No Project');
 		             this.taskList.add('No Task');
                }
                  
-              this.rowArray(0).controls['project'].setValue(Array.from(this.projectList)[0]);
-               this.rowArray(0).controls['task'].setValue(Array.from(this.taskList)[0]);
+             // this.rowArray(0).controls['project'].setValue(Array.from(this.projectList)[0]);
+              // this.rowArray(0).controls['task'].setValue(Array.from(this.taskList)[0]);
                })
 	
 

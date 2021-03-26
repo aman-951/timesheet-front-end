@@ -12,7 +12,7 @@ body {
 }
 
 #page-content-wrapper {
-    min-width: 100vw;
+/*     min-width: 100vw; */
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -25,8 +25,8 @@ body {
     }
 
     #page-content-wrapper {
-        min-width: 0;
-        width: 100%;
+/*         min-width: 0; */
+         width: 150%; 
     }
 
     #wrapper.toggled #sidebar-wrapper {

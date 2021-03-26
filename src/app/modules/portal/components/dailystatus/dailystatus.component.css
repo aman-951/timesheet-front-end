@@ -6,7 +6,7 @@ select{
 	margin: 16px;
 }
 
-.col-sm-6 span{
+.col-sm-6 span, .col-sm-4 span{
 	font-weight: 700;
 }
 

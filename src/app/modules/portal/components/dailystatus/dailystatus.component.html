@@ -7,17 +7,17 @@
 
 <div style="margin: 32px;">
   <div class="row">
-  <div class="col-sm-6" ><span>Employee Name :</span> {{employeeData.name}}</div>
+  <div class="col-sm-4" ><span>Employee Name :</span> {{employeeData.name}}</div>
     <div class="col-sm-6"><span>Email :</span> {{employeeData.email}} </div>
   </div>
 
   <div class="row">
-    <div class="col-sm-6" ><span>Employee Id :</span> {{employeeData.id}}</div>
+    <div class="col-sm-4" ><span>Employee Id :</span> {{employeeData.id}}</div>
     <div class="col-sm-6"><span>Billable :</span> Yes</div>
   </div>
   
    <div class="row">
-    <div class="col-sm-6" ><span>In Time :</span> 9:10 AM</div>
+    <div class="col-sm-4" ><span>In Time :</span> 9:10 AM</div>
     <div class="col-sm-6"><span>Out Time :</span> 5:15 PM</div>
   </div>
 
@@ -126,12 +126,15 @@
 			</tr>
 		</tbody>
 	</table>
-	<input *ngIf="!approveState"  [disabled]="disabledState" class="btn btn-sm btn-outline-success"  type = "submit" (click)="saveReport()"  style="float: right;width: 17%;margin: 29px;" value = "Submit Report"> 
-	<input *ngIf="approveState" class="btn btn-sm btn-outline-success"  type = "submit" (click)="approveReport()"  style="float: right;width: 17%;margin: 29px;" value = "Approve Selected"> 
-	<input *ngIf="approveState" class="btn btn-outline-warning btn-sm"  type = "submit" (click)="rejectReport()"  style="float: right;width: 17%;margin: 29px;" value = "Reject Selected">
 	
 	 
 </form>
+
+    <input *ngIf="!approveState"  [disabled]="disabledState" class="btn btn-sm btn-outline-success"  type = "submit" (click)="saveReport()"  style="float: right;width: 17%;margin: 29px;" value = "Submit Report"> 
+	<input *ngIf="approveState" class="btn btn-sm btn-outline-success"  type = "submit" (click)="approveReport()"  style="float: right;width: 17%;margin: 29px;" value = "Approve Selected"> 
+	<input *ngIf="approveState" class="btn btn-outline-warning btn-sm"  type = "submit" (click)="rejectReport()"  style="float: right;width: 17%;margin: 29px;" value = "Reject Selected">
+	
+	
 </div>
 
 
