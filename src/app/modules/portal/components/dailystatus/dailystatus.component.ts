@@ -65,6 +65,7 @@ export class DailystatusComponent implements OnInit {
   counter: number = 0;
   combinedData: any =[];
   checked : any = false;
+  errorStr:string;
 
   ngOnInit(): void {
 
@@ -358,6 +359,7 @@ export class DailystatusComponent implements OnInit {
          this.dateSelected = this.weeks[i].date;
          this.statusColor= '#212529';
 
+              this.errorStr ='';
               this.counter = 0;
               this.projectList = new Set();
               this.taskList = new Set();
@@ -414,14 +416,14 @@ export class DailystatusComponent implements OnInit {
     return this.fb.group({
       project: Array.from(this.projectList)[0],
       check: false,
-      status: '',
+      status: 'Not Submitted Yet',
       task: '',
       hours:'',
       activity:'',
       blocker:'No',
       grandTotalHours: '',
       employeeComment: '',
-      managerComment: '',
+      managerComment: [{value: '', disabled: !this.approveState}],
       activityStatus:'Yet to Start',
       addActivity: [{value: '', disabled: true}],
       blockerDescription : [{value: '', disabled: true}]
@@ -452,6 +454,26 @@ export class DailystatusComponent implements OnInit {
   }
 
   saveReport() {
+	this.errorStr ='';
+	 for(var i=0; i< this.invoiceForm.getRawValue().Rows.length ; i++){
+		if(this.invoiceForm.getRawValue().Rows[i].hours == ''){
+		this.errorStr = 'Hour field is mandatory';
+		return;
+		}
+		
+		else if(this.invoiceForm.getRawValue().Rows[i].project == ''){
+		this.errorStr = 'Project field is mandatory';
+		return;
+		}
+		else if(this.invoiceForm.getRawValue().Rows[i].task == ''){
+		this.errorStr = 'Task field is mandatory. If no task is assigned, please contact your manager';
+		return;
+		}
+		else if(this.invoiceForm.getRawValue().Rows[i].activity == ''){
+		this.errorStr = 'Activity field is mandatory';
+		return;
+		}
+	 }
 	 for(var i=0; i< this.invoiceForm.getRawValue().Rows.length ; i++){
 		this.rowArray(i).controls['status'].setValue('Pending')
 	 }

@@ -56,7 +56,7 @@ select{
 <form [formGroup]="invoiceForm" (ngSubmit)="saveTimesheet()">
 	<table class="table table-hover" id="excel-table">
 		<thead>
-			<th scope="col" class="text-capitalize">Project</th>
+			<th scope="col" class="text-capitalize">Sub Project</th>
 		
 		    <th *ngFor="let item of dateSelectedList" class="text-capitalize">{{item.dayStr}} <br> {{item.value}}</th>
 			<th scope="col" class="text-capitalize">Total Hours</th>

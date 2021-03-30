@@ -24,6 +24,9 @@
   
 </div>
 
+<label style='color: #DF330E;padding-left: 15px;'>{{errorStr}}</label>
+
+
 <div>
 <select (change)="onOptionsSelected()" [(ngModel)]="selectedMonth">
 	           	<option *ngFor="let i of monthList" value="{{i.value}}">{{i.value}}</option>
@@ -40,7 +43,7 @@
 	<table class="table table-hover">
 		<thead>
 		    <th *ngIf="approveState" scope="col" class="text-capitalize"><input type="checkbox"  [checked]="checked" (change)="selectAll($event)" /></th>
-			<th scope="col" class="text-capitalize">Project</th>
+			<th scope="col" class="text-capitalize">Sub Project</th>
 			<th scope="col" class="text-capitalize">Task</th>
 			<th scope="col" class="text-capitalize">Activity</th>
 			<th scope="col" class="text-capitalize">Add Activity</th>
@@ -94,9 +97,9 @@
 			   <td> 
 					 
 					   <select class="form-group col-md-2" formControlName="activityStatus" style="min-width: max-content;margin: auto;">
-					   <option value="No" >Yet to Start</option>
-					   <option value="Yes">In Progress</option>
-					   <option value="No" >Completed</option>
+					   <option value="Yet to Start" >Yet to Start</option>
+					   <option value="In Progress">In Progress</option>
+					   <option value="Completed" >Completed</option>
 						</select>
 				
 				</td>

@@ -45,7 +45,7 @@
   
   
   <form [formGroup]="invoiceForm" (ngSubmit)="assigntask1(invoiceForm.value)" *ngIf="taskList.length >0">
-  
+  <label style='color: #DF330E;padding-left: 15px;'>{{errorStr}}</label>
   <div class="row">
 	   <div class="col-sm-4" >
 	     <label>From:</label><br>

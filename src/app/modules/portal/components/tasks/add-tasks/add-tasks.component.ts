@@ -24,6 +24,8 @@ export class AddTasksComponent implements OnInit {
     tasks:any;
    file: File;
    activityMap:any
+   combinedActivities:any;
+   selectedtask:string;
  
 
   clientListFromFile = new Set();
@@ -237,6 +239,7 @@ export class AddTasksComponent implements OnInit {
 				this.activityMap = new Map();		
 			   res.data.forEach((obj:any) =>{
 				if(obj.activity != null){
+				this.combinedActivities = obj.activity;
 				 var activities = obj.activity.split('},');
 			     activities.forEach((item:any) =>{
 				  item = item.replace(/{/g, "").replace(/}/g, "").replace(/\[/g, '').replace(/]/g, '');
@@ -268,11 +271,23 @@ export class AddTasksComponent implements OnInit {
 	addtask() {
         this.saveList = [];
         var taskSaved = '';
+        var activity ='';
+        var activitiesSaved = '['
         let value = this.projectForm.value
-         value.tasks.forEach((obj:any) =>{
-	           taskSaved = taskSaved + obj.task + ',';
-         })
-		this.saveList.push({client:value.client, project:value.project, subProject: value.subProject, tasks: taskSaved.replace(/,\s*$/, "")});
+//         value.tasks.forEach((obj:any) =>{
+//	           taskSaved = taskSaved + obj.task + ',';
+//         })
+
+
+		value.tasks.forEach((obj:any) => {			
+		   taskSaved = taskSaved + obj.task + ',';
+		   if(this.activityMap.has(obj.task))
+		   activity = this.activityMap.get(obj.task);
+          activitiesSaved = activitiesSaved + '{' + obj.task + ' : ' + activity +'},';
+		})
+     activitiesSaved = activitiesSaved.replace(/,\s*$/, "") + ']'
+   
+		this.saveList.push({client:value.client, project:value.project, subProject: value.subProject, tasks: taskSaved.replace(/,\s*$/, ""), activity:activitiesSaved});
 		this._service.post(this.saveList).subscribe(res => {
 			
 		})
@@ -280,12 +295,24 @@ export class AddTasksComponent implements OnInit {
 	}
 	
 	showActivity(e: any,i:number){		
-		var activities = this.activityMap.get(this.projectForm.value.tasks[i].task).split(',');
+		this.selectedtask = this.projectForm.value.tasks[i].task;
+		var activities;
+		if(this.activityMap.has(this.projectForm.value.tasks[i].task))
+		activities = this.activityMap.get(this.projectForm.value.tasks[i].task).split(',');
+		else
+		   this.activityMap.set(this.projectForm.value.tasks[i].task,'')
 		var str='';
 		activities.forEach((obj:any) =>{
 			str = str + obj +'\n';
 		})
 		this.projectForm.controls['addActivity'].setValue(str);
+	}
+	
+	updateActivities(){
+		var activity = this.projectForm.value.addActivity.replace(/(\r\n|\n|\r)/gm,",").replace(/,\s*$/, "").replace(/^,|,$/g, '');
+		this.activityMap.set(this.selectedtask, activity);
+		
+		
 	}
 	
 	

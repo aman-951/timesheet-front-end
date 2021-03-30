@@ -28,6 +28,8 @@ export class AssignEmployeesComponent implements OnInit {
 	selectedClient: any;
 	selectedProject: any;
 	searched_list: any = [];
+	showDetail:any = false;
+	errorStr:string;
 	
 	search_employee(str: any): void {
 		this.searched_list = []
@@ -79,7 +81,12 @@ export class AssignEmployeesComponent implements OnInit {
 	assignEmployee() {
        this.employees = [];
        this.saveList = [];
+       this.errorStr = '';
        let values = this.assignForm.controls['employees'].value;
+       if(values.length == 0){
+	    this.errorStr = 'Assign atleast 1 employee to Project';
+        return;
+       }
        values.forEach((obj:any) => {
 	          this.list.forEach((item:any) => {
 		           if(item.id == obj){
@@ -103,7 +110,9 @@ export class AssignEmployeesComponent implements OnInit {
 	
 	
 	searchEmployee():void{
+		this.showDetail = true;
 	    this.assignForm.controls['employees'].setValue([...new Set()])
+        
 		this._service.find(this.selectedClient, this.selectedProject, null,'client_project').subscribe((res:any) => {
 			if(res.data.length > 0){
 			var str = res.data[0].employees.split(',');
@@ -140,7 +149,6 @@ export class AssignEmployeesComponent implements OnInit {
 		  })
 		
    
-		
 		this._service.reportingEmployees(token.id).subscribe((res: any) => {
 			res.data.forEach((obj:any) => {
 				this.list.push({ id: obj.id, name: obj.name, email: obj.email });
@@ -148,6 +156,7 @@ export class AssignEmployeesComponent implements OnInit {
 			});
 
 		})
+		
 
 
 

@@ -43,6 +43,7 @@ export class AssignTasksComponent implements OnInit {
 	selectedProject: any;
    selectedSubProject: any;
    dateSelected: string;
+   errorStr:string;
 	 
 
    onOptionsSelected(){
@@ -186,6 +187,18 @@ export class AssignTasksComponent implements OnInit {
   }
 
 	assigntask1(value: any): void{
+		if(value.from == ''){
+			this.errorStr = 'Select From date';
+			return
+		}
+		else if(value.to == ''){
+			this.errorStr = 'Select To date';
+			return
+		}
+		else if(value.from > value.to){
+			this.errorStr = 'From Date can not be greater than To Date';
+			return
+		}
 		var listToBeSaved:any = [];
 		this.employees.forEach((obj:any) => {
 			
@@ -199,6 +212,11 @@ export class AssignTasksComponent implements OnInit {
 			
 			
 		})
+		if(listToBeSaved.length == 0){
+			this.errorStr = 'Assign task to atleast 1 employee';
+			return
+		}
+	
 		
 		this._service.post(listToBeSaved).subscribe()
 		

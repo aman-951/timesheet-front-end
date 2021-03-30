@@ -73,9 +73,10 @@
   
   <div class="col-sm-6" *ngIf="activityMap">
     <!-- add field  to add new task -->
+    <label>Task: {{selectedtask}}</label><br>
     <label>Activities:</label><br>
     <textarea rows="10" style=" width: 616px;margin-top: 7px;" formControlName="addActivity"></textarea>
-
+    <button class="btn btn-outline-success btn-sm text-capitalize px-5" (click)="updateActivities()">Update Activities</button>
    
   </div>
   
@@ -83,7 +84,7 @@
 
   <div class="text-right" *ngIf="activityMap">
     <button class="btn btn-outline-success btn-sm text-capitalize px-5" [disabled]="projectForm.invalid"
-      (click)="addtask()">add tasks</button>
+      (click)="addtask()">Save Tasks and Activities</button>
   </div>
 </form>
 </div>
