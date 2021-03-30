@@ -170,9 +170,9 @@ export class TimesheetComponent implements OnInit {
         this.dateSelectedList[j].day = '0' + this.dateSelectedList[j].day;
     }
 
-    this._service.swipe(this.empId, year + "-" + month + "-" + start, year + "-" + month + "-" + end).subscribe(res => {
-      var a = 'aman';
-    })
+//    this._service.swipe(this.empId, year + "-" + month + "-" + start, year + "-" + month + "-" + end).subscribe(res => {
+//      var a = 'aman';
+//    })
 
     this._service.list(this.empId, year + "-" + month + "-" + start, year + "-" + month + "-" + end).subscribe(res => {
       this.response = res.data;
