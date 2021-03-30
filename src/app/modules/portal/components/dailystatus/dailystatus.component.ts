@@ -109,7 +109,7 @@ export class DailystatusComponent implements OnInit {
     const month3 = monthDate.toLocaleString('default', { month: 'short' });
 
 
-    this.monthList.push({ value: month + ' - ' + currentDate.getFullYear(), firstDate: firstDayOfFirstMonth, lastDate: lastDayOfFirstMonth });
+    this.monthList.push({ value: month + ' - ' + currentDate.getFullYear(), firstDate: firstDayOfFirstMonth, lastDate: currentDate });
     this.monthList.push({ value: month2 + ' - ' + previousDate.getFullYear(), firstDate: previousDate, lastDate: lastDayOfSecondMonth });
     this.monthList.push({ value: month3 + ' - ' + monthDate.getFullYear(), firstDate: monthDate, lastDate: lastDayOfThirdMonth });
 
@@ -155,12 +155,12 @@ export class DailystatusComponent implements OnInit {
         var month = this.monthList[i].value.split(" ")[0];
         for(var j=firstDate.getDate() ; j<=lastDate ; j++){
 	     var date = firstDate.getFullYear() + '-' + (firstDate.getMonth() + 1) + '-' + j;
-	     this.weeks.push({value:j+ " "+month, date:date});
+	     this.weeks.push(date);
         }
 
       }
     }
-    this.onOptionsSelected2(this.weeks[0].value);
+    this.onOptionsSelected2(this.weeks[0]);
 
   }
 
@@ -354,9 +354,7 @@ export class DailystatusComponent implements OnInit {
   onOptionsSelected2(value: string): void {
 	this.blockerDescription = false;
 	this.disabledState = false;
-    for (var i = 0; i < this.weeks.length; i++) {
-      if (this.weeks[i].value == value) {
-         this.dateSelected = this.weeks[i].date;
+         this.dateSelected = value;
          this.statusColor= '#212529';
 
               this.errorStr ='';
@@ -390,13 +388,6 @@ export class DailystatusComponent implements OnInit {
                })
 	
 
-
-
-
-
-
-      }
-    }
 
 
   }
@@ -446,11 +437,13 @@ export class DailystatusComponent implements OnInit {
   }
 
   deleteRow(index: number) {
+	if(this.invoiceForm.getRawValue().Rows.length > 1){
 	this.counter--;
    this.taskListForTable.splice(index, 1);
    this.activityListForTable.splice(index, 1);
     this.formArr.removeAt(index);
     this.addHours();
+   }
   }
 
   saveReport() {

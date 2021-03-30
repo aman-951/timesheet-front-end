@@ -33,7 +33,7 @@
 </select>
 
 <select (change)="onOptionsSelected1($event)" style='width: 104px;'>
-	           	<option *ngFor="let i of weeks">{{i.value}}</option>
+	           	<option *ngFor="let i of weeks" value="{{i}}">{{i | date:"dd MMM"}}</option>
 </select>
 
 </div>
@@ -105,7 +105,7 @@
 				</td>
 			   <td><textarea rows="4" style=" width: 320px;" formControlName="employeeComment"  (mouseenter)="focus($event)" (mouseleave)="focusOut()"></textarea></td>
 			   <td><textarea rows="4" style=" width: 320px;" formControlName="managerComment"  (mouseenter)="focus($event)" (mouseleave)="focusOut()"></textarea></td>			   
-			   <td><label formControlName="status"  [ngStyle]="{'color': getStatusColor(i)}" >{{this.invoiceForm.getRawValue().Rows[i].status}}</label></td>
+			   <td><label  [ngStyle]="{'color': getStatusColor(i)}" >{{this.invoiceForm.getRawValue().Rows[i].status}}</label></td>
 			   <td *ngIf="!approveState" ><input [disabled]="getDisabledState(i)" (click)="addNewRow()" class="btn btn-sm btn-outline-success" value = "+"></td>
 			   <td *ngIf="!approveState" ><input [disabled]="getDisabledState(i)" (click)="deleteRow(i)" class="btn btn-outline-warning btn-sm" value = "-"></td>
                
