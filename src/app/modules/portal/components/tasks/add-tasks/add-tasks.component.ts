@@ -42,6 +42,7 @@ export class AddTasksComponent implements OnInit {
 	  if(this.file != null) {
 	       let reader: FileReader = new FileReader();
 	       reader.readAsText(this.file);
+           var month = this.file.name.split('_')[1].split('.')[0];
 	       reader.onload = (e) => {
 	          let csvData: string = reader.result as string;
 			let allTextLines = csvData.split(/\r?\n|\r/);
@@ -115,7 +116,7 @@ export class AddTasksComponent implements OnInit {
  
                          if(combinedActivity != '')
                          combinedActivity = '[' + combinedActivity + ']';
-                         this.saveList.push({client:client, project:project, subProject: subProject, tasks: tasks.replace(/,\s*$/, ""), activity: combinedActivity.replace(/,\s*$/, "")});
+                         this.saveList.push({client:client, project:project, subProject: subProject, tasks: tasks.replace(/,\s*$/, ""), activity: combinedActivity.replace(/,\s*$/, ""), month:month});
 						 tasks = '';
 
                       })
